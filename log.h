@@ -98,7 +98,7 @@
 
 #else
 
-#define CT_CHECK_MEM(A) (A)
+#define CT_CHECK_MEM(A) A
 
 #endif
 
