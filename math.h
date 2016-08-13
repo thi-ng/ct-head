@@ -179,24 +179,24 @@ ct_inline float ct_fast_cos_impl(const float x) {
 }
 
 ct_inline float ct_fast_cos(float x) {
-  x = fmodf(x, TAU);
+  x = fmodf(x, CT_TAU);
   if (x < 0) {
     x = -x;
   }
-  switch ((uint8_t)(x * INV_HALF_PI)) {
+  switch ((uint8_t)(x * CT_INV_HALF_PI)) {
     case 0:
       return ct_fast_cos_impl(x);
     case 1:
-      return -ct_fast_cos_impl(PI - x);
+      return -ct_fast_cos_impl(CT_PI - x);
     case 2:
-      return -ct_fast_cos_impl(x - PI);
+      return -ct_fast_cos_impl(x - CT_PI);
     default:
-      return ct_fast_cos_impl(TAU - x);
+      return ct_fast_cos_impl(CT_TAU - x);
   }
 }
 
 ct_inline float ct_fast_sin(const float x) {
-  return ct_fast_cos(HALF_PI - x);
+  return ct_fast_cos(CT_HALF_PI - x);
 }
 
 ct_inline float ct_rand_norm() {
