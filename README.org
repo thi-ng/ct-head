@@ -1,0 +1,25 @@
+* ct-head
+
+Common utility headers & macros for c.thi.ng projects
+
+** Build customization flags
+
+The following =defines= can be used to customize compile & runtime behaviors:
+
+| =CT_FEATURE_LOG=           | enable logging (if =NDEBUG= is defined, the =CT_DEBUG= will be elided) |
+| =CT_FEATURE_ANSI=          | use ANSI colors in log messages                                        |
+| =CT_FEATURE_CHECKS=        | enable runtime assertions (via =CT_CHECK= macro)                       |
+| =CT_FEATURE_CHECK_MEM=     | enable runtime memory checks (via =CT_CHECK_MEM= macro)                |
+| =CT_FEATURE_SSE=           | enable SSE version                                                     |
+| =CT_LOG_PRELUDE=           | initial part of logging function call (see [[./log.h]])                    |
+| =CT_CHECK_FAIL_ACTION=     | what to do when checks fail (default: =goto fail=)                     |
+| =CT_CHECK_MEM_FAIL_ACTION= | what do when out of memory (default: =exit(1)=)                        |
+
+** Contributors
+
+| *Name*          | *Role*                          | *Website* |
+| [[mailto:k@thi.ng][Karsten Schmidt]] | initiator & principal developer | [[http://thi.ng][thi.ng]]    |
+
+** License
+
+This project is open source and licensed under the [[http://www.apache.org/licenses/LICENSE-2.0][Apache Software License 2.0]].
