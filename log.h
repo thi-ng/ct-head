@@ -20,20 +20,20 @@
 #define CT_DEBUG(M, ...)
 #else
 #define CT_DEBUG(M, ...)                                                       \
-  CT_LOG_PRELUDE "[DEBUG ] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+  CT_LOG_PRELUDE "[  DEBUG] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 #endif // NDEBUG
 
 #define CT_ERROR(M, ...)                                                       \
   CT_LOG_PRELUDE                                                               \
-	  CT_ANSI_RED "[ERROR] (%s:%d) " M CT_ANSI_RESET "\n", \
+	  CT_ANSI_RED "[  ERROR] (%s:%d) " M CT_ANSI_RESET "\n", \
 	  __FILE__, __LINE__, ##__VA_ARGS__)
 
 #define CT_WARN(M, ...)                                                        \
-  CT_LOG_PRELUDE "[WARN  ] (%s:%d) " M "\n", __FILE__, __LINE__, \
+  CT_LOG_PRELUDE "[   WARN] (%s:%d) " M "\n", __FILE__, __LINE__, \
 	  ##__VA_ARGS__)
 
-#define CT_INFO(M, ...)                                                        \
-  CT_LOG_PRELUDE "[INFO  ] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define CT_INFO(M, ...) \
+  CT_LOG_PRELUDE "[   INFO] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 #define CT_SUCCESS(M, ...)                                                     \
   CT_LOG_PRELUDE CT_ANSI_GREEN "[SUCCESS] (%s:%d) " M CT_ANSI_RESET "\n", \
