@@ -1,5 +1,7 @@
 #pragma once
 
+#include <time.h>
+
 #include "features.h"
 #include "log.h"
 
