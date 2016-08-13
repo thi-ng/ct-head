@@ -52,7 +52,7 @@
 ////////////////////////////////////////////////////////////
 
 #ifndef CT_CHECK_FAIL_ACTION
-#define CT_CHECK_FAIL_ACTION goto fail;
+#define CT_CHECK_FAIL_ACTION goto fail
 #endif
 
 #ifdef CT_FEATURE_CHECKS
@@ -87,7 +87,7 @@
 #if CT_FEATURE_CHECK_MEM
 
 #ifndef CT_CHECK_MEM_FAIL_ACTION
-#define CT_CHECK_MEM_FAIL_ACTION exit(1);
+#define CT_CHECK_MEM_FAIL_ACTION exit(1)
 #endif
 
 #define CT_CHECK_MEM(A)                                                        \
