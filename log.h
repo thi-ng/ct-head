@@ -32,7 +32,7 @@
   CT_LOG_PRELUDE "[   WARN] (%s:%d) " M "\n", __FILE__, __LINE__, \
 	  ##__VA_ARGS__)
 
-#define CT_INFO(M, ...) \
+#define CT_INFO(M, ...)                                                        \
   CT_LOG_PRELUDE "[   INFO] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 #define CT_SUCCESS(M, ...)                                                     \
@@ -93,7 +93,7 @@
 #define CT_CHECK_MEM(A)                                                        \
   if (!(A)) {                                                                  \
     CT_ERROR("Out of memory!");                                                \
-    CT_CHECK_MEM_FAIL_ACTION;                                                      \
+    CT_CHECK_MEM_FAIL_ACTION;                                                  \
   }
 
 #else
