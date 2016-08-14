@@ -39,6 +39,10 @@ ct_inline float ct_smush_normpos(CT_Smush *rnd) {
   return (float)ct_smush(rnd) * CT_INV_UINT32_MAX;
 }
 
+ct_inline float ct_smush_minmax(CT_Smush *rnd, float min, float max) {
+  return ct_mixf(min, max, ct_smush_normpos(rnd));
+}
+
 // xorshift128 - https://en.wikipedia.org/wiki/Xorshift
 
 ct_inline void ctss_xors_init(CT_XorShift *rnd) {
@@ -65,4 +69,8 @@ ct_inline float ct_xors_norm(CT_XorShift *rnd) {
 
 ct_inline float ct_xors_normpos(CT_XorShift *rnd) {
   return (float)ct_xors(rnd) * CT_INV_UINT32_MAX;
+}
+
+ct_inline float ct_xors_minmax(CT_XorShift *rnd, float min, float max) {
+  return ct_mixf(min, max, ct_xors_normpos(rnd));
 }
