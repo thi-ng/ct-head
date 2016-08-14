@@ -45,7 +45,7 @@ ct_inline float ct_smush_minmax(CT_Smush *rnd, float min, float max) {
 
 // xorshift128 - https://en.wikipedia.org/wiki/Xorshift
 
-ct_inline void ctss_xors_init(CT_XorShift *rnd) {
+ct_inline void ct_xors_init(CT_XorShift *rnd) {
   rnd->x = 0xdecafbad;
   rnd->y = 0x2fa9d05b;
   rnd->z = 0x041f67e3;
