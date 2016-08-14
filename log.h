@@ -6,6 +6,8 @@
 //      \/                  \/     \/     \/      \/
 //
 
+#pragma once
+
 #include "features.h"
 
 #ifdef CT_FEATURE_LOG
@@ -39,13 +41,22 @@
   CT_LOG_PRELUDE CT_ANSI_GREEN "[SUCCESS] (%s:%d) " M CT_ANSI_RESET "\n", \
 	  __FILE__, __LINE__, ##__VA_ARGS__)
 
-#else
+#define CT_TIMED(...)                                                        \
+  {                                                                          \
+    clock_t t0 = clock();                                                    \
+    __VA_ARGS__;                                                             \
+    CT_INFO("time: %1.3fms", (double)(clock() - t0) / CLOCKS_PER_SEC * 1e3); \
+  }
+
+#else  // CT_FEATURE_LOG
 
 #define CT_DEBUG(M, ...)
 #define CT_ERROR(M, ...)
 #define CT_WARN(M, ...)
 #define CT_INFO(M, ...)
 #define CT_SUCCESS(M, ...)
+
+#define CT_TIMED(...) __VA_ARGS__
 
 #endif  // CT_FEATURE_LOG
 
@@ -69,7 +80,7 @@
     CT_CHECK_FAIL_ACTION;         \
   }
 
-#else
+#else  // CT_FEATURE_CHECKS
 
 #define CT_CHECK(A, M, ...)
 #define CT_CHECK_DEBUG(A, M, ...)
@@ -96,24 +107,8 @@
     CT_CHECK_MEM_FAIL_ACTION;   \
   }
 
-#else
+#else  // CT_FEATURE_CHECK_MEM
 
 #define CT_CHECK_MEM(A) A
 
-#endif
-
-////////////////////////////////////////////////////////////
-
-#ifdef CT_FEATURE_LOG
-
-#define CT_TIMED(...)                                                        \
-  {                                                                          \
-    clock_t t0 = clock();                                                    \
-    __VA_ARGS__;                                                             \
-    CT_INFO("time: %1.3fms", (double)(clock() - t0) / CLOCKS_PER_SEC * 1e3); \
-  }
-#else
-
-#define CT_TIMED(...) __VA_ARGS__
-
-#endif
+#endif  // CT_FEATURE_CHECK_MEM
