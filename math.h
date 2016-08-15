@@ -102,7 +102,9 @@ ct_inline size_t ct_ceil_pow2(size_t x) {
     x |= x >> 4;
     x |= x >> 8;
     x |= x >> 16;
+#ifdef __LP64__
     x |= x >> 32;
+#endif
     return x + 1;
   }
   return 1;
@@ -114,7 +116,9 @@ ct_inline size_t ct_floor_pow2(size_t x) {
   x |= x >> 4;
   x |= x >> 8;
   x |= x >> 16;
+#ifdef __LP64__
   x |= x >> 32;
+#endif
   return x - (x >> 1);
 }
 
