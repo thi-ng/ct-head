@@ -1,30 +1,29 @@
 #pragma once
 
+CT_BEGIN_DECLS
+
 #include <math.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdlib.h>
 
-#include "features.h"
+#include "./features.h"
 
 #ifndef CT_EPS
-#define CT_EPS 1e-6
+#define CT_EPS 1e-6f
 #endif
 #define CT_LN2 0.69314718055994530942f
 #define CT_SQRT2 1.414213562373095f
+#define CT_HALF_SQRT2 (0.5f * CT_SQRT2)
 
 #define CT_PI 3.1415926535897932384626433832795029f
-#define CT_TAU (2.0 * CT_PI)
-#define CT_HALF_PI (0.5 * CT_PI)
-#define CT_QUARTER_PI (0.25 * CT_PI)
-#define CT_INV_TAU (1.0 / CT_TAU)
-#define CT_INV_PI (1.0 / CT_PI)
-#define CT_INV_HALF_PI (1.0 / CT_HALF_PI)
-#define CT_DEGREES (180.0 / CT_PI)
-#define CT_RADIANS (CT_PI / 180.0)
-
-#define CT_INV_RAND_MAX (float)(1.0 / RAND_MAX)
-#define CT_INV_RAND_MAX2 (float)(2.0 / RAND_MAX)
+#define CT_TAU (2.0f * CT_PI)
+#define CT_HALF_PI (0.5f * CT_PI)
+#define CT_QUARTER_PI (0.25f * CT_PI)
+#define CT_INV_TAU (1.0f / CT_TAU)
+#define CT_INV_PI (1.0f / CT_PI)
+#define CT_INV_HALF_PI (1.0f / CT_HALF_PI)
+#define CT_DEGREES (180.0f / CT_PI)
+#define CT_RADIANS (CT_PI / 180.0f)
 
 #define CT_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define CT_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -40,15 +39,16 @@
     (b) = tmp;              \
   } while (0)
 
-CT_BEGIN_DECLS
-
 // x must be 0..1
 // bias: 1 = unbiased, <1 = bias towards high, >1 = bias towards low
-ct_inline float ct_biasf(float x, float low, float high, float bias) {
+ct_inline float ct_biasf(const float x,
+                         const float low,
+                         const float high,
+                         const float bias) {
   return low + (high - low) * powf(x, bias);
 }
 
-ct_inline size_t ct_clz8(uint8_t x) {
+ct_inline size_t ct_clz8(const uint8_t x) {
 #if defined(__GCC__) || defined(__clang__) || defined(__EMSCRIPTEN__)
   return x == 0 ? 8 : __builtin_clz(x) - 24;
 #else
@@ -82,15 +82,15 @@ ct_inline float ct_stepf(const float x,
   return (x < edge ? y1 : y2);
 }
 
-ct_inline float ct_wrapf(float x, float domain) {
+ct_inline float ct_wrapf(const float x, const float domain) {
   return ((x < 0.f) ? (domain + x) : (x >= domain ? (x - domain) : x));
 }
 
-ct_inline uint32_t ct_rotl32(uint32_t x, uint8_t r) {
+ct_inline uint32_t ct_rotl32(const uint32_t x, const uint8_t r) {
   return (x << r) | (x >> (32 - r));
 }
 
-ct_inline uint64_t ct_rotl64(uint64_t x, uint8_t r) {
+ct_inline uint64_t ct_rotl64(const uint64_t x, const uint8_t r) {
   return (x << r) | (x >> (64 - r));
 }
 
@@ -150,7 +150,7 @@ ct_inline float ct_clampf(const float x, const float a, const float b) {
   return CT_CLAMP(x, a, b);
 }
 
-#if defined(__ARM_FEATURE_SAT)
+#ifdef __ARM_FEATURE_SAT
 ct_inline int16_t ct_clamp16(const int32_t x) {
   uint32_t res;
   __asm("ssat %0, #16, %1" : "=r"(res) : "r"(x));
@@ -182,12 +182,12 @@ ct_inline float ct_fast_cos_impl(const float x) {
   return 0.99940307f + x2 * (-0.49558072f + 0.03679168f * x2);
 }
 
-ct_inline float ct_fast_cos(float x) {
+ct_inline float ct_fast_cos(const float x) {
   x = fmodf(x, CT_TAU);
   if (x < 0) {
     x = -x;
   }
-  switch ((uint8_t)(x * CT_INV_HALF_PI)) {
+  switch ((size_t)(x * CT_INV_HALF_PI)) {
     case 0:
       return ct_fast_cos_impl(x);
     case 1:
@@ -201,18 +201,6 @@ ct_inline float ct_fast_cos(float x) {
 
 ct_inline float ct_fast_sin(const float x) {
   return ct_fast_cos(CT_HALF_PI - x);
-}
-
-ct_inline float ct_rand_norm() {
-  return rand() * CT_INV_RAND_MAX2 - 1.0f;
-}
-
-ct_inline float ct_rand_normpos() {
-  return rand() * CT_INV_RAND_MAX;
-}
-
-ct_inline float ct_rand_minmax(const float min, const float max) {
-  return ct_rand_normpos() * (max - min) + min;
 }
 
 CT_END_DECLS

@@ -10,8 +10,8 @@
 
 #include <time.h>
 
-#include "features.h"
-#include "log.h"
+#include "./features.h"
+#include "./log.h"
 
 #define CT_TEST_DECLS       \
   extern size_t __testsRun; \

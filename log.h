@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "features.h"
+#include "./features.h"
 
 #ifdef CT_FEATURE_LOG
 
