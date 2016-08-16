@@ -8,13 +8,13 @@
 
 #pragma once
 
+#include "./features.h"
+#include "./math.h"
+
 CT_BEGIN_DECLS
 
 #include <stdint.h>
 #include <stdlib.h>
-
-#include "./features.h"
-#include "./math.h"
 
 #define CT_INV_RAND_MAX (1.0f / RAND_MAX)
 #define CT_INV_RAND_MAX2 (2.0f / RAND_MAX)

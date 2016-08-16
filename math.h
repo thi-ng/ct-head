@@ -1,12 +1,12 @@
 #pragma once
 
+#include "./features.h"
+
 CT_BEGIN_DECLS
 
 #include <math.h>
 #include <stddef.h>
 #include <stdint.h>
-
-#include "./features.h"
 
 #ifndef CT_EPS
 #define CT_EPS 1e-6f
