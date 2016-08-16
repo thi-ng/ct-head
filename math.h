@@ -25,6 +25,8 @@ CT_BEGIN_DECLS
 #define CT_DEGREES (180.0f / CT_PI)
 #define CT_RADIANS (CT_PI / 180.0f)
 
+#define CT_INT_BITS1 ((int)(8 * sizeof(int) - 1))
+
 #define CT_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define CT_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define CT_CLAMP(a, b, c) CT_MIN(CT_MAX(a, b), c)
@@ -136,7 +138,8 @@ ct_inline size_t ct_ceil_multiple_pow2(const size_t x, const size_t y) {
 }
 
 ct_inline int ct_maxi(const int a, const int b) {
-  return CT_MAX(a, b);
+  const int t = a - b;
+  return a - ((t >> CT_INT_BITS1) & t);
 }
 
 ct_inline float ct_maxf(const float a, const float b) {
@@ -144,7 +147,8 @@ ct_inline float ct_maxf(const float a, const float b) {
 }
 
 ct_inline int ct_mini(const int a, const int b) {
-  return CT_MIN(a, b);
+  const int t = b - a;
+  return a + ((t >> CT_INT_BITS1) & t);
 }
 
 ct_inline float ct_minf(const float a, const float b) {
