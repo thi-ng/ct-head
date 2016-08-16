@@ -93,8 +93,14 @@ ct_inline float ct_wrapf(const float x, const float domain) {
   return ((x < 0.f) ? (domain + x) : (x >= domain ? (x - domain) : x));
 }
 
-ct_inline uint32_t ct_rotl32(const uint32_t x, const uint8_t r) {
+ct_inline uint32_t ct_rotl32(const uint32_t x, uint8_t r) {
+#if __ARM_ARCH == 7
+  uint32_t res;
+  __asm("ror %0, %1, %2" : "=r"(res) : "r"(x), "I"(32 - r));
+  return res;
+#else
   return (x << r) | (x >> (32 - r));
+#endif
 }
 
 ct_inline uint64_t ct_rotl64(const uint64_t x, const uint8_t r) {
