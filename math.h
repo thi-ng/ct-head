@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./features.h"
+#include "features.h"
 
 CT_BEGIN_DECLS
 
@@ -92,6 +92,10 @@ ct_inline uint32_t ct_rotl32(const uint32_t x, const uint8_t r) {
 
 ct_inline uint64_t ct_rotl64(const uint64_t x, const uint8_t r) {
   return (x << r) | (x >> (64 - r));
+}
+
+ct_inline int ct_is_pow2(size_t x) {
+  return (x && ((x & (x - 1)) == 0));
 }
 
 ct_inline size_t ct_ceil_pow2(size_t x) {

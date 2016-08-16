@@ -8,7 +8,9 @@
 
 #pragma once
 
-#include "./features.h"
+#include "features.h"
+
+CT_BEGIN_DECLS
 
 #ifdef CT_FEATURE_LOG
 
@@ -112,3 +114,5 @@
 #define CT_CHECK_MEM(A) A
 
 #endif  // CT_FEATURE_CHECK_MEM
+
+CT_END_DECLS

@@ -8,10 +8,12 @@
 
 #pragma once
 
-#include <time.h>
+#include "features.h"
+#include "log.h"
 
-#include "./features.h"
-#include "./log.h"
+CT_BEGIN_DECLS
+
+#include <time.h>
 
 #define CT_TEST_DECLS       \
   extern size_t __testsRun; \
@@ -48,3 +50,5 @@
     }                                                                         \
     return result;                                                            \
   }
+
+CT_END_DECLS

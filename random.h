@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "./features.h"
-#include "./math.h"
+#include "features.h"
+#include "math.h"
 
 CT_BEGIN_DECLS
 
