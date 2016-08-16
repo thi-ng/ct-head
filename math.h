@@ -56,6 +56,11 @@ ct_inline size_t ct_clz8(const uint8_t x) {
 #endif
 }
 
+ct_inline int ct_deltaeqi(const int a, const int b, const int eps) {
+  const int t = a - b;
+  return (((t - eps) & (-t - eps)) < 0);
+}
+
 ct_inline int ct_deltaeqf(const float a, const float b, const float eps) {
   return fabs(a - b) <= eps;
 }
