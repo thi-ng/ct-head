@@ -182,7 +182,7 @@ ct_inline float ct_fast_cos_impl(const float x) {
   return 0.99940307f + x2 * (-0.49558072f + 0.03679168f * x2);
 }
 
-ct_inline float ct_fast_cos(const float x) {
+ct_inline float ct_fast_cos(float x) {
   x = fmodf(x, CT_TAU);
   if (x < 0) {
     x = -x;
@@ -199,7 +199,7 @@ ct_inline float ct_fast_cos(const float x) {
   }
 }
 
-ct_inline float ct_fast_sin(const float x) {
+ct_inline float ct_fast_sin(float x) {
   return ct_fast_cos(CT_HALF_PI - x);
 }
 
