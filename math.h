@@ -190,6 +190,22 @@ ct_inline int32_t ct_clamp24(const int32_t x) {
 }
 #endif
 
+ct_inline float ct_mapf(const float x,
+                        const float a,
+                        const float b,
+                        const float c,
+                        const float d) {
+  return ct_mixf(c, d, (x - a) / (b - a));
+}
+
+ct_inline float ct_mapf_clamped(const float x,
+                                const float a,
+                                const float b,
+                                const float c,
+                                const float d) {
+  return ct_mixf(c, d, ct_clampf((x - a) / (b - a), 0.f, 1.f));
+}
+
 // Approximates cos(pi*x) for x in [-1,1]
 ct_inline float ct_norm_cos(const float x) {
   const float x2 = x * x;
