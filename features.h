@@ -71,3 +71,13 @@
 #define CT_BEGIN_DECLS
 #define CT_END_DECLS
 #endif
+
+#if defined(__GNUC__) || defined(__clang__)
+#define CT_LIKELY(x) (__builtin_expect(!!(x), 1))
+#define CT_UNLIKELY(x) (__builtin_expect(!!(x), 0))
+#define CT_UNPREDICTABLE(x) (__builtin_unpredictable(!!(x)))
+#else
+#define CT_LIKELY(x) (x)
+#define CT_UNLIKELY(x) (x)
+#define CT_UNPREDICTABLE(x) (x)
+#endif
