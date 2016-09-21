@@ -51,7 +51,7 @@ ct_inline float ct_biasf(const float x,
 }
 
 ct_inline size_t ct_clz8(const uint8_t x) {
-#if defined(__GCC__) || defined(__clang__) || defined(__EMSCRIPTEN__)
+#if defined(__GNUC__) || defined(__clang__) || defined(__EMSCRIPTEN__)
   return x == 0 ? 8 : __builtin_clz(x) - 24;
 #else
   return 0;  // FIXME
@@ -219,7 +219,7 @@ ct_inline float ct_fast_cos_impl(const float x) {
 
 ct_inline float ct_fast_cos(float x) {
   x = fmodf(x, CT_TAU);
-  if (x < 0) {
+  if (CT_UNLIKELY(x < 0)) {
     x = -x;
   }
   switch ((size_t)(x * CT_INV_HALF_PI)) {
